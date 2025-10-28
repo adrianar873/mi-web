@@ -1,221 +1,289 @@
-// ...existing code...
-import { Code2, Network, Shield, Wifi, Github, Mail, Coffee, Sparkles } from 'lucide-react';
+import { Code2, Network, Shield, Wifi, Github, Coffee, Sparkles, Terminal, Zap, Eye } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('hero');
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+
+      const sections = ['hero', 'about', 'skills', 'projects'];
+      const current = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      if (current) setActiveSection(current);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50/30 via-white to-slate-50/50">
-      <nav className="fixed top-0 w-full bg-white/70 backdrop-blur-lg border-b border-slate-200/60 z-50 shadow-sm">
-        <div className="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
-          <div className="text-lg font-semibold text-slate-800 flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-blue-600 rounded-lg flex items-center justify-center">
-              <Code2 className="w-5 h-5 text-white" />
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white">
+      {/* Efectos de fondo animados */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 -left-20 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 -right-20 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }}></div>
+        <div className="absolute top-1/2 left-1/2 w-64 h-64 bg-cyan-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }}></div>
+      </div>
+
+      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-slate-900/95 backdrop-blur-xl border-b border-slate-800 shadow-2xl' : 'bg-transparent'}`}>
+        <div className="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+          <div className="flex items-center gap-3 group cursor-pointer">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg shadow-blue-500/30">
+              <Terminal className="w-5 h-5 text-white" />
             </div>
-            <span>Bienvenido / Bienvenue / Willkommen / Benvenuto</span>
+            <span className="text-lg font-bold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+              Adrián
+            </span>
           </div>
-          <div className="flex gap-6">
-            <a href="#about" className="text-sm text-slate-600 hover:text-blue-500 transition-colors duration-200">¿Quién soy?</a>
-            <a href="#skills" className="text-sm text-slate-600 hover:text-blue-500 transition-colors duration-200">Habilidades</a>
-            <a href="#projects" className="text-sm text-slate-600 hover:text-blue-500 transition-colors duration-200">Experimentos</a>
+          <div className="flex gap-8">
+            {[
+              { id: 'about', label: '¿Quién soy?' },
+              { id: 'skills', label: 'Skills' },
+              { id: 'projects', label: 'Proyectos' }
+            ].map(item => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`text-sm font-medium transition-all duration-300 relative group ${activeSection === item.id ? 'text-blue-400' : 'text-slate-400 hover:text-white'
+                  }`}
+              >
+                {item.label}
+                <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300 ${activeSection === item.id ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}></span>
+              </a>
+            ))}
           </div>
         </div>
       </nav>
 
-      <section id="hero" className="pt-32 pb-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="flex flex-col items-start max-w-2xl">
-            <h1 className="text-5xl md:text-6xl font-bold text-slate-900 mb-5 leading-tight">
-              Hola, soy Adrián
+      <section id="hero" className="relative pt-40 pb-32 px-6 overflow-hidden">
+        <div className="max-w-6xl mx-auto relative z-10">
+          <div className="flex flex-col items-start max-w-3xl">
+            <h1 className="text-6xl md:text-7xl font-black mb-6 leading-tight">
+              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Hola, soy Adrián
+              </span>
             </h1>
-            <p className="text-xl text-slate-600 mb-4 leading-relaxed font-light">
-              Construyo cosas interesantes.
+            <p className="text-2xl text-slate-300 mb-4 font-light">
+              Construyo cosas <span className="text-blue-400 font-semibold">interesantes</span> y experimento con tecnología.
             </p>
-            <p className="text-lg text-slate-500 mb-8 leading-relaxed">
-              Actualmente estudiando , siempre curioso sobre cómo funciona todo por dentro.
+            <p className="text-lg text-slate-400 mb-10 leading-relaxed max-w-2xl">
+              Estudiante apasionado por la programación, redes, sistemas y ciberseguridad.
+              Siempre curioso sobre cómo funciona todo por dentro.
             </p>
-            <div className="flex gap-3">
-              <a href="#projects" className="px-5 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl hover:border-slate-300 hover:shadow-md transition-all duration-200 text-sm font-medium">
-                Ver experimentos
+            <div className="flex gap-4 flex-wrap">
+              <a
+                href="#projects"
+                className="group px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl hover:shadow-2xl hover:shadow-blue-500/50 transition-all duration-300 text-sm font-semibold hover:scale-105 flex items-center gap-2"
+              >
+                Ver proyectos
+                <Zap className="w-4 h-4 group-hover:rotate-12 transition-transform" />
+              </a>
+              <a
+                href="https://github.com/adrianar873"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-6 py-3 bg-slate-800 border border-slate-700 rounded-xl hover:bg-slate-700 hover:border-slate-600 transition-all duration-300 text-sm font-semibold hover:scale-105 flex items-center gap-2"
+              >
+                <Github className="w-4 h-4" />
+                GitHub
               </a>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="about" className="py-20 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="bg-white rounded-3xl p-10 shadow-sm border border-slate-100">
-            <div className="grid md:grid-cols-2 gap-10 items-center">
+      <section id="about" className="py-24 px-6 relative">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-xl rounded-3xl p-12 border border-slate-700/50 shadow-2xl">
+            <div className="grid md:grid-cols-2 gap-12 items-center">
               <div>
-                <h2 className="text-3xl font-bold text-slate-900 mb-4 flex items-center gap-2">
-                  Sobre mí
-                  <Coffee className="w-6 h-6 text-amber-600" />
+                <h2 className="text-4xl font-bold mb-6 flex items-center gap-3">
+                  <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                    Sobre mí
+                  </span>
+                  <Coffee className="w-8 h-8 text-amber-500 animate-bounce" />
                 </h2>
-                <p className="text-slate-600 mb-4 leading-relaxed">
-                  Estudiante al que le flipa programar y cacharrear con sistemas. Si hay servidores de por medio, ya estoy dentro.                </p>
-                <p className="text-slate-600 leading-relaxed">
-                  Básicamente, me mola todo lo tecnológico: redes, sistemas, ciberseguridad, cualquier cosa que tenga que ver con tecnología me llama la atención.
+                <p className="text-slate-300 mb-5 leading-relaxed text-lg">
+                  Estudiante al que le flipa programar y cacharrear con sistemas.
+                  Si hay servidores de por medio, ya estoy dentro.
+                </p>
+                <p className="text-slate-400 leading-relaxed">
+                  Me mola todo lo tecnológico: redes, sistemas, ciberseguridad...
+                  Cualquier cosa que tenga que ver con tecnología me llama la atención.
                 </p>
               </div>
               <div className="grid grid-cols-2 gap-4">
-                <div className="bg-gradient-to-br from-blue-50 to-blue-100/50 p-6 rounded-2xl hover:shadow-md transition-all duration-200 border border-blue-100 group hover:scale-105">
-                  <Code2 className="w-7 h-7 text-blue-600 mb-3 group-hover:rotate-6 transition-transform duration-200" />
-                  <h3 className="font-semibold text-slate-900 mb-1 text-sm">Programación</h3>
-                  <p className="text-xs text-slate-600">Desarrollo</p>
-                </div>
-                <div className="bg-gradient-to-br from-sky-50 to-sky-100/50 p-6 rounded-2xl hover:shadow-md transition-all duration-200 border border-sky-100 group hover:scale-105">
-                  <Network className="w-7 h-7 text-sky-600 mb-3 group-hover:rotate-6 transition-transform duration-200" />
-                  <h3 className="font-semibold text-slate-900 mb-1 text-sm">Redes</h3>
-                  <p className="text-xs text-slate-600">Servidores y sistemas</p>
-                </div>
-                <div className="bg-gradient-to-br from-violet-50 to-violet-100/50 p-6 rounded-2xl hover:shadow-md transition-all duration-200 border border-violet-100 group hover:scale-105">
-                  <Shield className="w-7 h-7 text-violet-600 mb-3 group-hover:rotate-6 transition-transform duration-200" />
-                  <h3 className="font-semibold text-slate-900 mb-1 text-sm">Ciber Seguridad</h3>
-                  <p className="text-xs text-slate-600">Pentesting y defensa</p>
-                </div>
-                <div className="bg-gradient-to-br from-emerald-50 to-emerald-100/50 p-6 rounded-2xl hover:shadow-md transition-all duration-200 border border-emerald-100 group hover:scale-105">
-                  <Wifi className="w-7 h-7 text-emerald-600 mb-3 group-hover:rotate-6 transition-transform duration-200" />
-                  <h3 className="font-semibold text-slate-900 mb-1 text-sm">Aprendizaje</h3>
-                  <p className="text-xs text-slate-600">Siempre curioso</p>
-                </div>
+                {[
+                  { icon: Code2, title: 'Desarrollo', desc: 'Full-stack', color: 'blue', gradient: 'from-blue-500/10 to-blue-600/5' },
+                  { icon: Network, title: 'Redes', desc: 'Servidores', color: 'cyan', gradient: 'from-cyan-500/10 to-cyan-600/5' },
+                  { icon: Shield, title: 'Seguridad', desc: 'Pentesting', color: 'purple', gradient: 'from-purple-500/10 to-purple-600/5' },
+                  { icon: Wifi, title: 'Aprendizaje', desc: 'Continuo', color: 'emerald', gradient: 'from-emerald-500/10 to-emerald-600/5' }
+                ].map((item, idx) => (
+                  <div
+                    key={idx}
+                    className={`bg-gradient-to-br ${item.gradient} backdrop-blur-sm p-6 rounded-2xl border border-slate-700/30 hover:scale-105 hover:border-${item.color}-500/50 transition-all duration-300 group cursor-pointer`}
+                  >
+                    <item.icon className={`w-8 h-8 text-${item.color}-400 mb-3 group-hover:rotate-12 transition-transform duration-300`} />
+                    <h3 className="font-semibold text-white mb-1">{item.title}</h3>
+                    <p className="text-xs text-slate-400">{item.desc}</p>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="skills" className="py-20 px-6 bg-gradient-to-b from-transparent to-slate-50/50">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-3">Con qué trabajo</h2>
-            <p className="text-slate-600">Tecnologías y herramientas que trabaje con ellas</p>
+      <section id="skills" className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Stack tecnológico
+              </span>
+            </h2>
+            <p className="text-slate-400 text-lg">Herramientas con las que trabajo</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white p-7 rounded-2xl border border-slate-100 hover:shadow-lg transition-all duration-200 hover:scale-105">
-              <h3 className="text-lg font-semibold text-slate-900 mb-4">Desarrollo</h3>
-              <div className="flex flex-wrap gap-2">
-                {['Java', 'Python', 'MySQL', 'Flutter', 'MongoDB', 'SQLite'].map(skill => (
-                  <span key={skill} className="px-3 py-1.5 bg-blue-50 text-slate-700 rounded-lg text-xs font-medium hover:bg-slate-200 transition-colors duration-200">
-                    {skill}
-                  </span>
-                ))}
+            {[
+              {
+                title: 'Desarrollo',
+                skills: ['Java', 'Python', 'MySQL', 'Flutter (empezando)', 'MongoDB (empezando)', 'SQLite'],
+                gradient: 'from-blue-500/10 to-blue-600/5',
+                border: 'border-blue-500/20'
+              },
+              {
+                title: 'Sistemas y Redes',
+                skills: ['Configuración de redes', 'Análisis de redes', 'Virtualización'],
+                gradient: 'from-purple-500/10 to-purple-600/5',
+                border: 'border-purple-500/20'
+              },
+              {
+                title: 'Herramientas',
+                skills: ['Git', 'Docker', 'Linux', 'Bash', 'PowerShell'],
+                gradient: 'from-cyan-500/10 to-cyan-600/5',
+                border: 'border-cyan-500/20'
+              }
+            ].map((category, idx) => (
+              <div
+                key={idx}
+                className={`bg-gradient-to-br ${category.gradient} backdrop-blur-sm p-8 rounded-2xl border ${category.border} hover:scale-105 transition-all duration-300 hover:shadow-2xl`}
+              >
+                <h3 className="text-xl font-bold text-white mb-6">{category.title}</h3>
+                <div className="flex flex-wrap gap-2">
+                  {category.skills.map(skill => (
+                    <span
+                      key={skill}
+                      className="px-3 py-2 bg-slate-800/50 border border-slate-700/50 text-slate-300 rounded-lg text-xs font-medium hover:bg-slate-700/50 hover:border-slate-600 transition-all duration-200 cursor-pointer"
+                    >
+                      {skill}
+                    </span>
+                  ))}
+                </div>
               </div>
-            </div>
-            <div className="bg-white p-7 rounded-2xl border border-slate-100 hover:shadow-lg transition-all duration-200 hover:scale-105">
-              <h3 className="text-lg font-semibold text-slate-900 mb-4">Sistemas y Redes</h3>
-              <div className="flex flex-wrap gap-2">
-                {['Configuración de redes y servidores', 'Herramientas de análisis de redes', 'Virtualización'].map(skill => (
-                  <span key={skill} className="px-3 py-1.5 bg-blue-50 text-blue-700 rounded-lg text-xs font-medium hover:bg-blue-100 transition-colors duration-200">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-            <div className="bg-white p-7 rounded-2xl border border-slate-100 hover:shadow-lg transition-all duration-200 hover:scale-105">
-              <h3 className="text-lg font-semibold text-slate-900 mb-4">Herramientas</h3>
-              <div className="flex flex-wrap gap-2">
-                {['Git', 'Docker', 'Linux', 'Bash', 'PowerShell'].map(skill => (
-                  <span key={skill} className="px-3 py-1.5 bg-slate-100 text-slate-700 rounded-lg text-xs font-medium hover:bg-slate-200 transition-colors duration-200">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section id="projects" className="py-20 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-slate-900 mb-3">Experimentos</h2>
-            <p className="text-slate-600">Algunos experimentos de los que hice</p>
+      <section id="projects" className="py-24 px-6">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                Experimentos destacados
+              </span>
+            </h2>
+            <p className="text-slate-400 text-lg">Algunos proyectos en los que he trabajado</p>
           </div>
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="bg-white rounded-2xl overflow-hidden border border-slate-100 hover:shadow-xl transition-all duration-300 group hover:scale-105">
-              <div className="h-44 bg-gradient-to-br from-blue-100 via-blue-50 to-white flex items-center justify-center group-hover:from-blue-200 transition-colors duration-300">
-                <Shield className="w-14 h-14 text-blue-600" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">Escáner vulnerabilidades de imágenes Docker </h3>
-                <p className="text-slate-600 mb-4 text-sm leading-relaxed">
-                  Analiza y protege tus contenedores de forma automática.
-                </p>
-                <div className="flex gap-2 mb-4 flex-wrap">
-                  <span className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs">Docker</span>
-                  <span className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs">Seguridad</span>
-                  <span className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs">Trivy</span>
+          <div className="grid md:grid-cols-2 gap-8">
+            {[
+              {
+                icon: Shield,
+                title: 'Escáner de vulnerabilidades Docker',
+                desc: 'Analiza y protege tus contenedores de forma automática con Trivy.',
+                tags: ['Docker', 'Seguridad', 'Trivy', 'CI/CD'],
+                link: 'https://github.com/adrianar873/trivy-ci-example',
+                gradient: 'from-blue-500/20 to-purple-500/20'
+              },
+              {
+                icon: Code2,
+                title: 'What will you build today?',
+                desc: 'Web creada con IA y personalizada para mostrar proyectos.',
+                tags: ['TypeScript', 'React', 'Tailwind'],
+                link: 'https://github.com/adrianar873/mi-web',
+                gradient: 'from-cyan-500/20 to-blue-500/20'
+              }
+            ].map((project, idx) => (
+              <div
+                key={idx}
+                className="group bg-gradient-to-br from-slate-800/50 to-slate-900/50 backdrop-blur-xl rounded-2xl overflow-hidden border border-slate-700/50 hover:border-slate-600 transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-blue-500/20"
+              >
+                <div className={`h-48 bg-gradient-to-br ${project.gradient} flex items-center justify-center relative overflow-hidden`}>
+                  <div className="absolute inset-0 bg-grid-white/5"></div>
+                  <project.icon className="w-16 h-16 text-white z-10 group-hover:scale-110 transition-transform duration-300" />
                 </div>
-                <button
-                  onClick={() => window.open("https://github.com/adrianar873/trivy-ci-example", "_blank")}
-                  className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center gap-1 group">
-                  Ver más
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
-                </button>
-
-              </div>
-            </div>
-
-            <div className="bg-white rounded-2xl overflow-hidden border border-slate-100 hover:shadow-xl transition-all duration-300 group hover:scale-105">
-              <div className="h-44 bg-gradient-to-br from-sky-100 via-sky-50 to-white flex items-center justify-center group-hover:from-sky-200 transition-colors duration-300">
-                <Code2 className="w-14 h-14 text-sky-600" />
-              </div>
-              <div className="p-6">
-                <h3 className="text-lg font-semibold text-slate-900 mb-2">What will you build today?</h3>
-                <p className="text-slate-600 mb-4 text-sm leading-relaxed">
-                  Una web que he creado con la IA bolt y luego he modificado.
-                </p>
-                <div className="flex gap-2 mb-4 flex-wrap">
-                  <span className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs">TypeScript + JSX</span>
-                  <span className="px-2.5 py-1 bg-slate-100 text-slate-700 rounded-md text-xs">Tailwind</span>
+                <div className="p-8">
+                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors">
+                    {project.title}
+                  </h3>
+                  <p className="text-slate-400 mb-5 leading-relaxed">
+                    {project.desc}
+                  </p>
+                  <div className="flex gap-2 mb-6 flex-wrap">
+                    {project.tags.map(tag => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 bg-slate-800 border border-slate-700 text-slate-300 rounded-lg text-xs"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <button
+                    onClick={() => window.open(project.link, "_blank")}
+                    className="flex items-center gap-2 text-blue-400 hover:text-blue-300 font-medium group/btn"
+                  >
+                    <Eye className="w-4 h-4" />
+                    Ver proyecto
+                    <span className="group-hover/btn:translate-x-1 transition-transform duration-200">→</span>
+                  </button>
                 </div>
-                <button
-                  onClick={() => window.open("https://github.com/adrianar873/mi-web", "_blank")}
-                  className="text-blue-600 hover:text-blue-700 font-medium text-sm flex items-center gap-1 group">
-                  Ver más
-                  <span className="group-hover:translate-x-1 transition-transform duration-200">→</span>
-                </button>
               </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
-      {/*
-<section id="contact" className="py-20 px-6 bg-gradient-to-b from-transparent to-slate-50/50">
-  <div className="max-w-3xl mx-auto">
-    <div className="bg-white rounded-3xl p-10 shadow-sm border border-slate-100 text-center">
-      <h2 className="text-3xl font-bold text-slate-900 mb-4">Te podría interesar</h2>
-      <p className="text-lg text-slate-600 mb-8">
-        Échale un vistazo a mis repositorios en GitHub.
-      </p>
-      <div className="flex justify-center gap-4 flex-wrap">
-        
-        <a href="mailto:your.email@example.com" className="flex items-center gap-2 px-5 py-2.5 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all duration-200 hover:shadow-lg hover:scale-105 text-sm font-medium">
-          <Mail className="w-4 h-4" />
-          Enviar email
-        </a>
-        // Comentado porque decidí no usar esta parte
-        
-      <a href="https://github.com/adrianar873" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 text-slate-700 rounded-xl hover:border-slate-300 hover:shadow-md transition-all duration-200 hover:scale-105 text-sm font-medium">
-        <Github className="w-4 h-4" />
-        GitHub
-      </a>
-    </div>
-    </div >
-  </div >
-</section >
-*/
-      }
 
-
-
-      <footer className="py-8 px-6 border-t border-slate-200">
-        <div className="max-w-5xl mx-auto text-center text-slate-500 text-sm">
-          <p>/---------------------------------------------------------------------------------------------------------------------------/</p>
+      <footer className="py-12 px-6 border-t border-slate-800">
+        <div className="max-w-6xl mx-auto text-center">
+          <p className="text-slate-500 text-sm mb-4">
+            Hecho con <span className="text-red-500">BOLT IA Y CLAUDE</span>
+          </p>
+          <div className="flex justify-center gap-6">
+            <a
+              href="https://github.com/adrianar873"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-slate-400 hover:text-white transition-colors"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+          </div>
         </div>
       </footer>
-    </div >
+    </div>
   );
 }
 
 export default App;
-// ...existing code...
