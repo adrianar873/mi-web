@@ -11,15 +11,15 @@ export default function Skills() {
 
   const skillCategories: SkillCategory[] = [
     {
-      name: 'Desarrollo',
+      name: 'Languages & BD',
       skills: ['Java', 'Python', 'MySQL', 'Flutter', 'MongoDB', 'SQLite']
     },
     {
-      name: 'Sistemas y Redes',
-      skills: ['Configuración de redes', 'Análisis de redes', 'Virtualización']
+      name: 'Systems and Networks',
+      skills: ['Network Configuration', 'Network Analysis', 'Virtualization']
     },
     {
-      name: 'Herramientas',
+      name: 'Tools',
       skills: ['Git', 'Docker', 'Linux', 'Bash', 'PowerShell']
     }
   ];
