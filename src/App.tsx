@@ -1,19 +1,30 @@
-import Header from './components/Header';
+import GridBg from './components/GridBg';
+import Frame from './components/Frame';
+import Rail from './components/Rail';
+import Hero from './components/Hero';
+import Bio from './components/Bio';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
-import Footer from './components/Footer';
+import Footnote from './components/Footnote';
 
-function App() {
+export default function App() {
   return (
-    <div className="min-h-screen bg-gray-50" style={{ fontFamily: '"Crimson Text", "Georgia", serif' }}>
-      <div className="max-w-3xl mx-auto px-6 py-16">
-        <Header />
-        <Projects />
-        <Skills />
-        <Footer />
+    <>
+      <GridBg />
+      <div className="container" style={{ position: 'relative', zIndex: 1, maxWidth: 880, margin: '0 auto', padding: '0 24px' }}>
+        <div style={{ margin: '40px auto' }}>
+          <Frame>
+            <Rail />
+            <Hero />
+            <Bio />
+            <div className="content">
+              <Projects />
+              <Skills />
+            </div>
+            <Footnote />
+          </Frame>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
-
-export default App;

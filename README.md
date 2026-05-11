@@ -1,28 +1,23 @@
-# 🌐 Mi Web
+# Adrián Alves — Portfolio
 
-Sitio web creado con **BOLT AI** (https://bolt.new) y **Claude AI** (https://claude.ai).  
-Web para subir experimentos y proyectos, creada con generación de código con inteligencia artificial.
+Portfolio personal con diseño editorial-industrial inspirado en interfaces retro, cantos naranjas y tipografía mixta (Inter + JetBrains Mono).
 
----
+## Stack
 
-##  Tecnologías
-- HTML, Tailwand, TypeScript  
-- **BOLT AI** y **Claude AI**  
-- Despliegue en **GitHub Pages**
+- **Vite** + **React** + **TypeScript**
+- **Tailwind CSS** (utilidades base)
+- CSS personalizado para el diseño editorial
 
----
-
-## Instalación y ejecución
+## Desarrollo
 
 ```bash
-# Clonar el repositorio
-git clone https://github.com/adrianar873/mi-web.git
-
-# Entrar al proyecto
-cd mi-web
-
-# Instalar dependencias
 npm install
-
-# Ejecutar el entorno de desarrollo
 npm run dev
+```
+
+## Build
+
+```bash
+npm run build
+npm run preview
+```
