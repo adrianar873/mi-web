@@ -70,7 +70,7 @@ export const skillCategories = [
   {
     name: 'Languages',
     children: [
-      { name: 'feeling comfortable', skills: ['Java', 'Python'] },
+      { name: 'feeling comfortable', skills: ['Java', 'Python', 'Flutter'] },
       { name: 'learning', skills: ['TypeScript', 'JavaScript'] },
       { name: 'dabbling', skills: ['Rust'] },
     ],
