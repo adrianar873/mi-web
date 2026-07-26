@@ -1,23 +1,8 @@
-# Adrián Alves — Portfolio
+# Portfolio
 
-Portfolio personal con diseño editorial-industrial inspirado en interfaces retro, cantos naranjas y tipografía mixta (Inter + JetBrains Mono).
+Portfolio personal con estética de **cartel retro**: papel crema, bordes de tinta, sombras duras sin
+`border-radius` y cuatro acentos de serigrafía (óxido, oro, turquesa, azul marino). Tipografía display
+Alfa Slab One sobre Inter + JetBrains Mono.
 
-## Stack
-
-- **Vite** + **React** + **TypeScript**
-- **Tailwind CSS** (utilidades base)
-- CSS personalizado para el diseño editorial
-
-## Desarrollo
-
-```bash
-npm install
-npm run dev
-```
-
-## Build
-
-```bash
-npm run build
-npm run preview
-```
+Todo el contenido se compone en una rejilla de dos columnas para que la web entera se lea de un vistazo,
+sin scroll largo.

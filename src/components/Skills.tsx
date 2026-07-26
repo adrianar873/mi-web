@@ -1,22 +1,22 @@
 import { useState } from 'react';
 import { skillCategories } from '../data/content';
 
-function SkillTags({ skills }: { skills: string[] }) {
+function SkillTags({ name, skills }: { name: string; skills: string[] }) {
   const [showSkills, setShowSkills] = useState(false);
 
   return (
-    <span style={{ marginLeft: 4, display: 'inline-flex', alignItems: 'center', flexWrap: 'wrap' }}>
-      <span
-        style={{ cursor: 'pointer', color: '#8a8072', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.5rem' }}
-        onClick={(event) => {
-          event.stopPropagation();
-          setShowSkills(!showSkills);
-        }}
+    <span className="skill-sub-tags">
+      <button
+        type="button"
+        className="skill-toggle"
+        aria-expanded={showSkills}
+        aria-label={`${showSkills ? 'Hide' : 'Show'} ${name} skills`}
+        onClick={() => setShowSkills(!showSkills)}
       >
         {showSkills ? '[-]' : '[+]'}
-      </span>
+      </button>
       {showSkills && (
-        <span className="tags collapse-inner" style={{ marginLeft: 6 }}>
+        <span className="tags collapse-inner">
           {skills.map((skill, skillIndex) => (
             <span key={skillIndex}>{skill}</span>
           ))}
@@ -30,45 +30,32 @@ function SkillCategory({ category }: { category: typeof skillCategories[number] 
   const [showCategory, setShowCategory] = useState(false);
 
   return (
-    <div
-      className="skill-cat"
-      style={{ cursor: 'pointer' }}
-      onClick={() => setShowCategory(!showCategory)}
-    >
-      <h4 style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+    <div className="skill-cat">
+      <button
+        type="button"
+        className="skill-cat-head"
+        aria-expanded={showCategory}
+        onClick={() => setShowCategory(!showCategory)}
+      >
         {category.name}
-        <span style={{ color: '#8a8072', marginLeft: 8 }}>
+        <span className="skill-toggle" aria-hidden="true">
           {showCategory ? '[-]' : '[+]'}
         </span>
-      </h4>
+      </button>
+
       {showCategory && category.children && (
-        <div
-          className="collapse-wrap collapse-inner"
-          style={{ marginTop: 8, marginLeft: 12, display: 'flex', flexDirection: 'column', gap: 8 }}
-          onClick={(event) => event.stopPropagation()}
-        >
+        <div className="skill-children collapse-inner">
           {category.children.map((childCategory, childIndex) => (
-            <div key={childIndex}>
-              <h4 style={{
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: '0.45rem',
-                fontWeight: 600,
-                color: '#8a8072',
-                textTransform: 'uppercase',
-                letterSpacing: '0.18em',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 4,
-              }}>
-                {childCategory.name}
-                <SkillTags skills={childCategory.skills} />
-              </h4>
-            </div>
+            <h4 className="skill-sub" key={childIndex}>
+              {childCategory.name}
+              <SkillTags name={childCategory.name} skills={childCategory.skills} />
+            </h4>
           ))}
         </div>
       )}
+
       {showCategory && category.skills && (
-        <div className="tags collapse-inner" style={{ marginTop: 6 }}>
+        <div className="tags collapse-inner skill-tags-block">
           {category.skills.map((skill, skillIndex) => (
             <span key={skillIndex}>{skill}</span>
           ))}
@@ -80,13 +67,13 @@ function SkillCategory({ category }: { category: typeof skillCategories[number] 
 
 export default function Skills() {
   return (
-    <div className="section" id="skills">
+    <section className="section section--skills" id="skills">
       <h2 className="section-header">Skills</h2>
       <div className="section-body">
         {skillCategories.map((category, categoryIndex) => (
           <SkillCategory key={categoryIndex} category={category} />
         ))}
       </div>
-    </div>
+    </section>
   );
 }

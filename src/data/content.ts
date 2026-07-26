@@ -6,16 +6,32 @@ export const personal = {
   ],
 };
 
-export const experience = [
+type ExperienceItem = {
+  period: string;
+  title: string;
+  bullets: string[];
+};
+
+export const experience: ExperienceItem[] = [
   {
-    period: '2024 — Present',
-    title: 'IT Intern',
-    desc: 'Working on infrastructure, network configuration, and internal tooling.',
+    period: '2026 — Present',
+    title: 'Application Development & Automation Technician',
+    bullets: [
+      'Build applications end to end — database, backend, frontend and deployment.',
+      'Develop internal automations.',
+      'Occasional end-user support.',
+    ],
   },
   {
-    period: '2022 — 2024',
-    title: 'Student Projects & Labs',
-    desc: 'Built load balancers with Docker + Nginx, vulnerability scanning with Trivy, and automation scripts.',
+    period: 'Mar 2024 — Jun 2024 · 4 months',
+    title: 'IT Technician — Internship',
+    bullets: [
+      'Equipment setup and commissioning.',
+      'LAN configuration.',
+      'FOG server management for system imaging.',
+      'Hardware maintenance.',
+      'End-user support and incident resolution.',
+    ],
   },
 ];
 
@@ -57,12 +73,11 @@ export const projects = [
   },
 ];
 
+// Solo canales públicos. Nada de email, Matrix ni IRC: este fichero vive en un
+// repo público y se renderiza en el HTML, así que lo recogen los bots de spam.
 export const contact = {
   channels: [
-    { label: 'email', value: 'adrian@proton.me', href: 'mailto:adrian@proton.me', status: 'online' },
     { label: 'github', value: 'github.com/adrianar873', href: 'https://github.com/adrianar873', status: 'active' },
-    { label: 'matrix', value: '@adrian:matrix.org', href: 'https://matrix.to/#/@adrian:matrix.org', status: 'online' },
-    { label: 'irc', value: 'irc://libera/adrian', href: 'https://web.libera.chat', status: 'online' },
   ],
 };
 
@@ -76,8 +91,20 @@ export const skillCategories = [
     ],
   },
   {
+    // Fuera de Languages porque son frameworks, no lenguajes, pero conservando
+    // el nivel "learning" que sí es lo que se quería comunicar.
+    name: 'Frameworks',
+    children: [
+      { name: 'learning', skills: ['React', 'Next.js', 'Express.js', 'Spring Boot'] },
+    ],
+  },
+  {
+    name: 'Data & Automation',
+    skills: ['Pandas', 'openpyxl'],
+  },
+  {
     name: 'Databases',
-    skills: ['MySQL', 'PostgreSQL', 'SQLite', 'MongoDB'],
+    skills: ['SQL', 'MySQL', 'PostgreSQL', 'SQLite', 'MongoDB'],
   },
   {
     name: 'Systems & Networks',
@@ -85,6 +112,6 @@ export const skillCategories = [
   },
   {
     name: 'Tools',
-    skills: ['Git', 'Docker', 'Linux', 'Bash', 'PowerShell', 'OpenCode', 'Claude Code'],
+    skills: ['Git', 'Docker', 'Linux', 'Bash', 'PowerShell', 'Trello', 'OpenCode', 'Claude Code'],
   },
 ];

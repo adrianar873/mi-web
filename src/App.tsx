@@ -1,29 +1,41 @@
-import GridBg from './components/GridBg';
+import GrainBg from './components/GrainBg';
 import Frame from './components/Frame';
 import Rail from './components/Rail';
 import Hero from './components/Hero';
 import Bio from './components/Bio';
+import Nav from './components/Nav';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
+import Experience from './components/Experience';
+import Contact from './components/Contact';
+import SiteFooter from './components/SiteFooter';
 import Footnote from './components/Footnote';
 
 export default function App() {
   return (
     <>
-      <GridBg />
-      <div className="container" style={{ position: 'relative', zIndex: 1, maxWidth: 880, margin: '0 auto', padding: '0 24px' }}>
-        <div style={{ margin: '40px auto' }}>
-          <Frame>
-            <Rail />
+      <GrainBg />
+      <div className="container">
+        <Frame>
+          <Rail />
+          <div className="hero-block">
             <Hero />
             <Bio />
-            <div className="content">
+          </div>
+          <Nav />
+          <div className="grid">
+            <div className="col-main">
               <Projects />
-              <Skills />
+              <Experience />
             </div>
-            <Footnote />
-          </Frame>
-        </div>
+            <div className="col-side">
+              <Skills />
+              <Contact />
+            </div>
+          </div>
+          <Footnote />
+          <SiteFooter />
+        </Frame>
       </div>
     </>
   );

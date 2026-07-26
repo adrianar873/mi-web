@@ -2,7 +2,7 @@ import { projects } from '../data/content';
 
 export default function Projects() {
   return (
-    <div className="section" id="projects">
+    <section className="section section--projects" id="projects">
       <h2 className="section-header">Projects</h2>
       <div className="section-body">
         {projects.map((project, projectIndex) => (
@@ -12,11 +12,11 @@ export default function Projects() {
                 <h3>{project.name}</h3>
                 <p>{project.desc}</p>
               </div>
-              <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.55rem', color: '#8a8072', flexShrink: 0 }}>↗</span>
+              <span className="project-arrow" aria-hidden="true">↗</span>
             </a>
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }
