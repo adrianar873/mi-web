@@ -1,6 +1,6 @@
+import AsciiBg from './components/AsciiBg';
 import GrainBg from './components/GrainBg';
 import Frame from './components/Frame';
-import Rail from './components/Rail';
 import Hero from './components/Hero';
 import Bio from './components/Bio';
 import Nav from './components/Nav';
@@ -14,10 +14,10 @@ import Footnote from './components/Footnote';
 export default function App() {
   return (
     <>
+      <AsciiBg />
       <GrainBg />
       <div className="container">
         <Frame>
-          <Rail />
           <div className="hero-block">
             <Hero />
             <Bio />

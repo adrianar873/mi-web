@@ -1,5 +1,5 @@
 export const personal = {
-  name: 'Adrián Alves',
+  name: 'Adrián Alves Rodríguez',
   role: 'developer & tech enthusiast',
   bio: [
     'Passionate about exploring new technologies. When there are servers involved, I\'m already in. I love everything tech: networks, systems, cybersecurity, IoT, drones… anything technology-related catches my attention.',
@@ -77,7 +77,8 @@ export const projects = [
 // repo público y se renderiza en el HTML, así que lo recogen los bots de spam.
 export const contact = {
   channels: [
-    { label: 'github', value: 'github.com/adrianar873', href: 'https://github.com/adrianar873', status: 'active' },
+    { label: 'github', value: 'adrianar873', href: 'https://github.com/adrianar873' },
+    { label: 'linkedin', value: 'Adrián Alves Rodríguez', href: 'https://www.linkedin.com/in/adri%C3%A1n-alves-rodr%C3%ADguez-0539752ab/' },
   ],
 };
 
